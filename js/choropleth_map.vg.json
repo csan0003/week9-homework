@@ -1,0 +1,49 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Total Deaths Caused by Natural Disasters in Africa",
+  "width": 1000,
+  "height": 900,
+  "projection": {"type": "equalEarth"},
+  "layer":[ 
+    {
+  "data": {
+    "url": "https://raw.githubusercontent.com/csan0003/week9-homework/main/js/ne_110m_admin_0_countries.topojson",
+    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+  },
+  
+
+
+  "mark": {"type": "geoshape"},
+  "encoding": {
+    "color": {
+      "field": "deaths",
+      "type": "quantitative",
+      "scale": {
+        "type": "threshold",
+        "domain": [0,50,100, 150,200, 250, 300],
+        "range": [ "#fdbe85", "#fd8d3c", "#e6550d", "#a63603"]
+        }
+    },
+    "tooltip": [
+      {"field": "properties.NAME", "type": "nominal", "title": "country"},
+      {"field": "deaths", "type": "quantitative"}
+    ]
+  },
+  
+  "transform": [
+    {
+      "lookup": "properties.NAME",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/csan0003/week9-homework/main/data/AFRICA-natural-disasters-new.csv"
+        },
+        "key": "country",
+        "fields": ["deaths"]
+      }
+    }
+  ]
+
+}
+  ]
+}
+
